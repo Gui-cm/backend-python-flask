@@ -2,7 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pandas as pd
 
-item_similarity_df = pd.read_csv("file://movie_similarity.csv", index_col=0)
+import os
+pwd = os.getcwd()
+item_similarity_df = pd.read_csv(f"{pwd}movie_similarity.csv", index_col=0)
+
+#item_similarity_df = pd.read_csv("file://movie_similarity.csv", index_col=0)
 
 app = Flask(__name__)
 CORS(app)
