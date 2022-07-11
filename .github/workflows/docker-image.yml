@@ -1,4 +1,4 @@
-name: Node Project DevOps CI on ECR
+name: Node Project DevOps CI on DockerHub
 
 on:
   push:
@@ -25,4 +25,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ github.repository }}:${{ env.RELEASE_VERSION }}
+        tags: ${{ github.repository }}:$(date +%s)
