@@ -4,7 +4,7 @@ import pandas as pd
 
 import os
 pwd = os.getcwd()
-item_similarity_df = pd.read_csv(f"{pwd}movie_similarity.csv", index_col=0)
+item_similarity_df = pd.read_csv("{pwd}movie_similarity.csv", index_col=0)
 
 #item_similarity_df = pd.read_csv("file://movie_similarity.csv", index_col=0)
 
