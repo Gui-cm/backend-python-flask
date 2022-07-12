@@ -2,6 +2,7 @@
   "family": "project-devops-app",
   "taskRoleArn": "arn:aws:iam::593387113088:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::593387113088:role/ecsTaskExecutionRole",
+  "wait-for-service-stability": true,
   "containerDefinitions": [
       {
           "name": "project-devops-app",
