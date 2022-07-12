@@ -11,11 +11,6 @@
         <summary>GET</summary>
 
         $ curl -X GET https://www.guicmtech.com.br/api
-
-        or
-
-        <summary>HTPPS</summary>
-        `https://www.guicmtech.com.br/api`
     </details>
 
 # movie-rec-engine-backend
