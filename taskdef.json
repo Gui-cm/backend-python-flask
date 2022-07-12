@@ -36,5 +36,6 @@
   ],
   "cpu": "1024",
   "memory": "2048",
-  "networkMode": "awsvpc"
+  "networkMode": "awsvpc",
+  "services": "arn:aws:ecs:us-east-1:593387113088:service/ecs-service-project-devops"
 }
