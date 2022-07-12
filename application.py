@@ -6,14 +6,12 @@ import os
 pwd = os.getcwd()
 item_similarity_df = pd.read_csv("movie_similarity.csv", index_col=0)
 
-#item_similarity_df = pd.read_csv("file://movie_similarity.csv", index_col=0)
-
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/api")
 def hello_from_root():
-    return jsonify(message='Hello from root! /n aaaaaa /n bbbbbb /n cccccc')
+    return jsonify(message='Hello from root!')
 
 @app.route("/recms", methods = ["POST"])
 def make_rec():
