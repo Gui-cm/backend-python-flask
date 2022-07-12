@@ -11,7 +11,7 @@ item_similarity_df = pd.read_csv("movie_similarity.csv", index_col=0)
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
+@app.route("/api")
 def hello_from_root():
     return jsonify(message='Hello from root!')
 
