@@ -2,7 +2,6 @@
   "family": "project-devops-app",
   "taskRoleArn": "arn:aws:iam::593387113088:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::593387113088:role/ecsTaskExecutionRole",
-  "networkMode": "host",
   "containerDefinitions": [
       {
           "name": "project-devops-app",
@@ -36,6 +35,5 @@
   ],
   "cpu": "1024",
   "memory": "2048",
-  "networkMode": "awsvpc",
-  "services": "arn:aws:ecs:us-east-1:593387113088:service/ecs-service-project-devops"
+  "networkMode": "awsvpc"
 }
