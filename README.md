@@ -1,3 +1,23 @@
+# Examples of requests using GET and POST methods
+
+- Examples of requests using GET and POST methods
+    <details>
+        <summary>POST</summary>
+
+        $ curl -X POST https://www.guicmtech.com.br/recms -H 'Content-Type: application/json' -d '{"movie_title":"Heat (1995)"}'
+    </details>
+
+    <details>
+        <summary>GET</summary>
+
+        $ curl -X GET https://www.guicmtech.com.br/api
+
+        or
+
+        <summary>HTPPS</summary>
+        `https://www.guicmtech.com.br/api`
+    </details>
+
 # movie-rec-engine-backend
 
 Here you can find the Movie Recommendation engine backend Flask API code. 

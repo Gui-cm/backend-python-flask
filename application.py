@@ -11,7 +11,7 @@ CORS(app)
 
 @app.route("/api")
 def hello_from_root():
-    return jsonify(message='Hello from root!')
+    return jsonify(message='200!')
 
 @app.route("/recms", methods = ["POST"])
 def make_rec():
