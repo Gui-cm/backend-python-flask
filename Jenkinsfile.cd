@@ -21,7 +21,7 @@ pipeline {
         
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '09938dd4-0873-4981-a77e-e54421870b56', url: 'https://github.com/Gui-cm/backend-python-flask.git']]])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '09938dd4-0873-4981-a77e-e54421870b56', url: 'https://github.com/Gui-cm/backend-python-flask.git']]])     
             }
         }
   
