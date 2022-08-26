@@ -54,7 +54,7 @@ pipeline {
         script {
           sh "aws ecs register-task-definition --cli-input-json ${AWS_ECS_TASK_DEFINITION_PATH} --profile ${PROFILE_AWS_CLI}"
           sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --region ${AWS_REGION} --task-definition ${AWS_ECS_TASK_DEFINITION} --force-new-deployment --profile ${PROFILE_AWS_CLI}"
-          sh "pwd"
+          echo "pwd"
         }
       }
     }
