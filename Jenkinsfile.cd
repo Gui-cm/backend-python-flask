@@ -49,6 +49,7 @@ pipeline {
         }
       }
 
+    // Deploy into AWS ECS
     stage('Deploy in ECS') {
       steps {
         script {
