@@ -10,7 +10,7 @@ pipeline {
         AWS_ECS_SERVICE = "ecs-service-houpa"
         AWS_ECS_TASK_DEFINITION = "houpa-app"
         AWS_ECS_CLUSTER = "cluster-houpa"
-        AWS_ECS_TASK_DEFINITION_PATH = "file://taskdefinition.json"
+        AWS_ECS_TASK_DEFINITION_PATH = "file:///home/ec2-user/taskdefinition.json"
     }
    
     stages {
