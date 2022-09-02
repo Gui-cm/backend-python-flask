@@ -15,10 +15,12 @@ pipeline {
 
     stages {
          stage('Escolhendo Ambiente') {
-           parameters [
-             choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'] , description: 'Escolha o Ambiente para deploy:')
-           ]
-         }
+           steps {
+              parameters [
+                choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'] , description: 'Escolha o Ambiente para deploy:')
+              ]
+            }
+          }
 
          stage('Logging into AWS ECR') {
             steps {
