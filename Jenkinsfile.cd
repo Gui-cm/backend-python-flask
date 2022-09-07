@@ -16,6 +16,7 @@ pipeline {
     stages {
          stage('Escolhendo Ambiente') {
             input {
+              message "Bla"
               parameters [
                 choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'] , description: 'Escolha o Ambiente para deploy:')
               ]
