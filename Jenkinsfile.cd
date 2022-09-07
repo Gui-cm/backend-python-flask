@@ -19,7 +19,7 @@
               steps {
                 script {
                   env.AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
-                    parameters [
+                    parameters: [
                       choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
                     ]
                 }
