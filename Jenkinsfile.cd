@@ -17,13 +17,13 @@ pipeline {
 
          stage('Escolhendo Ambiente') {
             steps {
-              script {
+              //script {
                 def AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
                   parameters [
                     choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
                   ]
                 env.AMBIENTE = AMBIENTE
-              }
+              //}
               echo "${env.AMBIENTE}"
             }
           }
