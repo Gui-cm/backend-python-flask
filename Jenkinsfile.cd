@@ -18,7 +18,7 @@ pipeline {
          stage('Escolhendo Ambiente') {
             steps {
               script {
-                def env.AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
+                env.AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
                   parameters [
                     choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'], description: 'Escolha o Ambiente para deploy:')
                   ]
