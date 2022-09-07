@@ -26,7 +26,9 @@
                   if (env.AMBIENTE == 'HML') { env.AWS_ACCOUNT_ID='123456789123-hml'}
                   if (env.AMBIENTE == 'DEV') { env.AWS_ACCOUNT_ID='123456789123-dev'}
                 }
-                echo "O ambiente escolhido foi ${env.AMBIENTE} e o deploy sera na conta: ${env.AWS_CCOUNT_ID}"
+                echo "O ambiente escolhido foi ${env.AMBIENTE} e o deploy sera na conta: ${env.AWS_ACCOUNT_ID}"
+
+                echo "debug msg: primeira env aws ${AWS_ACCOUNT_ID}, segunda env ${env.AWS_ACCOUNT_ID}"
               }
             }
 
