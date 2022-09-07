@@ -22,8 +22,11 @@
                     parameters: [
                       choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
                     ]
+                  if (env.AMBIENTE == 'PROD') { env.AWS_ACCOUNT_ID=123456789123}
+                  if (env.AMBIENTE == 'HML') { env.AWS_ACCOUNT_ID=123456789123}
+                  if (env.AMBIENTE == 'DEV') { env.AWS_ACCOUNT_ID=123456789123}
                 }
-                echo "${env.AMBIENTE}"
+                echo "O ambiente escolhido foi ${env.AMBIENTE} e o deploy será na conta: ${env.AWS_CCOUNT_ID}"
               }
             }
 
