@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+      node {
+        label 'Node-01'
+      }
+    }
     environment {
         AWS_REGION="us-east-1" 
         IMAGE_REPO_NAME="houpa-qa"
