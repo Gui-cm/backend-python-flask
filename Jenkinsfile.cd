@@ -1,7 +1,7 @@
   pipeline {
       agent any
       environment {
-          AWS_ACCOUNT_ID="613036180535"
+          //AWS_ACCOUNT_ID="613036180535"
           AWS_REGION="us-east-1" 
           IMAGE_REPO_NAME="houpa-qa"
           IMAGE_TAG="latest"
