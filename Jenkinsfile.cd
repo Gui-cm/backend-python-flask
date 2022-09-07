@@ -36,7 +36,9 @@ pipeline {
         stage('Terraform Plan') {
           steps {
             dir("Dir-do-tf") {
-              sh ('terraform plan -f arquivo')
+              //sh ('terraform plan -f arquivo.tf')
+              sh ('cat arquivo.tf')
+              echo "TF Plan Executado"
             }
           }
         }
@@ -53,7 +55,9 @@ pipeline {
         stage('Terraform Apply') {
           steps {
             dir("Dir-do-tf") {
-              sh ('terraform apply -f arquivo')
+              //sh ('terraform apply -f arquivo.tf')
+              sh ('cat arquivo.tf')
+              echo "TF Apply Executado"
             }
           }
         }
