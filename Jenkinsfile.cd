@@ -41,7 +41,7 @@ pipeline {
           steps {
             timeout(time: 2, unit: 'DAYS') {
               input message: "Deseja realizar o Terraform Apply no ambiente ${env.AMBIENTE} e conta ${env.AWS_ACCOUNT_ID}?",
-              submiter: 'ricardo.caeiro@darede.com.br,riccaeiro@hotmail.com'
+              submitter: 'ricardo.caeiro@darede.com.br,riccaeiro@hotmail.com'
             }
           }
         }
