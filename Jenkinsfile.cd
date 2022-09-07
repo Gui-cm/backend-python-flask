@@ -20,7 +20,7 @@ pipeline {
               script {
                 def AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
                   parameters [
-                    choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'], description: 'Escolha o Ambiente para deploy:')
+                    choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
                   ]
                 env.AMBIENTE = AMBIENTE
               }
