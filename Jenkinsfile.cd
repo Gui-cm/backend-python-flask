@@ -14,17 +14,20 @@ pipeline {
     }
 
     stages {
+
          stage('Escolhendo Ambiente') {
-            input {
-              message "Bla"
-              parameters [
-                choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'] , description: 'Escolha o Ambiente para deploy:')
-              ]
-            }
             steps {
-              echo "${AMBIENTE}"
+              script {
+                input {
+                  message "Escolha o Ambiente para deploy:"
+                  ok "OK"
+                  parameters [
+                    choice(name: 'AMBIENTE', choices:['PROD' , 'HML' , 'DEV'] , description: 'Escolha o Ambiente para deploy:')
+                  ]
+                }
+              }
             }
-         }
+          }
 
          stage('Logging into AWS ECR') {
             steps {
