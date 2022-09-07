@@ -1,82 +1,58 @@
-  pipeline {
-      agent any
-      environment {
-          //AWS_ACCOUNT_ID="613036180535"
-          AWS_REGION="us-east-1" 
-          IMAGE_REPO_NAME="houpa-qa"
-          IMAGE_TAG="latest"
-          REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-          PROFILE_AWS_CLI="darede"
-          AWS_ECS_SERVICE = "ecs-service-houpa"
-          AWS_ECS_TASK_DEFINITION = "houpa-app"
-          AWS_ECS_CLUSTER = "cluster-houpa"
-          AWS_ECS_TASK_DEFINITION_PATH = "file:///home/ec2-user/taskdefinition.json"
-      }
+pipeline {
+    agent any
+    environment {
+        AWS_REGION="us-east-1" 
+        IMAGE_REPO_NAME="houpa-qa"
+        IMAGE_TAG="latest"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        PROFILE_AWS_CLI="darede"
+        AWS_ECS_SERVICE = "ecs-service-houpa"
+        AWS_ECS_TASK_DEFINITION = "houpa-app"
+        AWS_ECS_CLUSTER = "cluster-houpa"
+        AWS_ECS_TASK_DEFINITION_PATH = "file:///home/ec2-user/taskdefinition.json"
+    }
+    stages {
 
-      stages {
-
-          stage('Escolhendo Ambiente') {
-              steps {
-                script {
-                  env.AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
-                    parameters: [
-                      choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
-                    ]
-                  if (env.AMBIENTE == 'PROD') { env.AWS_ACCOUNT_ID='123456789123-prd'}
-                  if (env.AMBIENTE == 'HML') { env.AWS_ACCOUNT_ID='123456789123-hml'}
-                  if (env.AMBIENTE == 'DEV') { env.AWS_ACCOUNT_ID='123456789123-dev'}
-                }
-                echo "O ambiente escolhido foi ${env.AMBIENTE} e o deploy sera na conta: ${env.AWS_ACCOUNT_ID}"
-
-                echo "debug msg: primeira env aws ${AWS_ACCOUNT_ID}, segunda env ${env.AWS_ACCOUNT_ID}"
+        stage('Escolhendo Ambiente') {
+            steps {
+              script {
+                env.AMBIENTE = input message: 'Escolha o Ambiente para deploy:', ok: 'OK',
+                  parameters: [
+                    choice(name: 'AMBIENTE', choices:['PROD','HML','DEV'], description: 'Escolha o Ambiente para deploy:')
+                  ]
+                if (env.AMBIENTE == 'PROD') { env.AWS_ACCOUNT_ID='123456789123-prd'}
+                if (env.AMBIENTE == 'HML') { env.AWS_ACCOUNT_ID='123456789123-hml'}
+                if (env.AMBIENTE == 'DEV') { env.AWS_ACCOUNT_ID='123456789123-dev'}
               }
+              echo "O ambiente escolhido foi ${env.AMBIENTE} e o deploy sera na conta: ${env.AWS_ACCOUNT_ID}"
+              echo "debug msg: primeira env aws ${AWS_ACCOUNT_ID}, segunda env ${env.AWS_ACCOUNT_ID}"
             }
+        }
 
-          stage('Logging into AWS ECR') {
-              steps {
-                script {
-                  sh "aws ecr get-login-password --region ${AWS_REGION} --profile ${PROFILE_AWS_CLI}| docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-                  }
-                  
-              }
+        stage('Terraform Plan') {
+          steps {
+            dir("Dir-do-tf") {
+              sh ('terraform plan -f arquivo')
+            }
           }
+        }
+
+        stage('Aprovando Terraform Apply') {
+          steps {
+            timeout(time: 2, unit: 'DAYS') {
+              input message: "Deseja realizar o Terraform Apply no ambiente ${env.AMBIENTE} e conta ${env.AWS_ACCOUNT_ID}?",
+              submmiter: 'ricardo.caeiro@darede.com.br,riccaeiro@hotmail.com'
+            }
+          }
+        }
           
-          stage('Cloning Git') {
-              steps {
-                  checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '053c5889-a082-47f4-81a9-9dbf22c59ee2', url: 'https://github.com/Gui-cm/backend-python-flask.git']]])     
-              }
-          }
-    
-      // Building Docker images
-      stage('Building image') {
-        steps{
-          script {
-            dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-          }
-        }
-      }
-    
-      // Uploading Docker images into AWS ECR
-      stage('Pushing to ECR') {
-      steps{  
-            script {
-              sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-              sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+        stage('Terraform Apply') {
+          steps {
+            dir("Dir-do-tf") {
+              sh ('terraform apply -f arquivo')
             }
           }
         }
 
-      // Deploy into AWS ECS
-      stage('Deploy in ECS') {
-        steps {
-          script {
-            echo "pwd"
-            sh "aws ecs register-task-definition --cli-input-json ${AWS_ECS_TASK_DEFINITION_PATH} --profile ${PROFILE_AWS_CLI}"
-            sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --region ${AWS_REGION} --task-definition ${AWS_ECS_TASK_DEFINITION} --force-new-deployment --profile ${PROFILE_AWS_CLI}"
-
-          }
-        }
-      }
-
-      }
-  }
+    }
+}
