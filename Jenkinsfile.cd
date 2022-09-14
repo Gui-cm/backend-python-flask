@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         AWS_ACCOUNT_ID = '613036180535'
-        AWS_REGION = 'us-east-1'
+        AWS_REGION = 'us-east-2'
         IMAGE_REPO_NAME = 'houpa-qa'
         IMAGE_TAG = 'latest'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
